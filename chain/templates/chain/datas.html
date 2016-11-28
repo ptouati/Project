@@ -1,0 +1,41 @@
+
+{% extends "chain/base.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block body %}
+
+
+
+        {% if mynodes %}
+
+              {% for nodes in mynodes %}
+
+                    {% if nodes.sensor_set.all %}
+                        {% for  sensor in nodes.sensor_set.all %}
+
+                              {% for  data1 in sensor.data_set.all %}
+
+                                    {{data1.data}}
+                                    &nbsp       <a href ="{% url 'chain:DeleteData'  data1.id %}"  class="btn btn-primary btn-sm" role="button"> Delete Data </a> <br><br>
+
+                              {% endfor %}
+
+
+
+                        {% endfor %}
+
+                    {%endif%}
+
+              {% endfor %}
+
+        {% else %}
+
+            No Nodes
+
+        {% endif %}
+
+
+
+
+{% endblock %}

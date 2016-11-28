@@ -1,0 +1,37 @@
+{% extends "chain/base.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block body %}
+
+{% if mynodes %}
+      <h3>Here Are Your Nodes</h3> <br>
+
+      {% for node in  mynodes %}
+
+
+            <ul class="list-group">
+              <li class="list-group-item">
+
+                &nbsp       <a href ="{% url 'chain:sensor'  node.id %}"> {{node.name}}  </a>
+                &nbsp       <a href ="{% url 'chain:UpdateNode'  node.id %}" class="btn btn-primary btn-sm" role="button"> Update Node </a>
+                &nbsp       <a href ="{% url 'chain:DeleteNode'  node.id %}"  class="btn btn-primary btn-sm" role="button"> Delete Node </a> <br> <br>
+                    <br>
+
+              </li>
+            </ul>
+
+
+
+      {% endfor %}
+
+{% else %}
+
+  <h1> Sorry No Node </h1>
+
+{% endif %}
+
+
+
+
+{% endblock %}
