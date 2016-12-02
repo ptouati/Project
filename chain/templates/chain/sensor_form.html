@@ -6,17 +6,20 @@
 
 <div class="container-fluid">
 
-    <form class="form-horizontal", action="", method="post" ,enctype="multipart/form-data">
-          {% csrf_token %}
-          {% include "chain/AddUser.html" %}
-          <div class="form-group">
-              <div class="col-sm-offset-2 col-sm-10">
-                    <br>
-                    <button type="submit" class="btn btn-success"> Add </button>
+      <form class="form-horizontal", action="", method="post" ,enctype="multipart/form-data">
+        {% if error_message %}
+            <h3><strong>  &nbsp       -------------------             {{ error_message }}    ----------------   </strong></h3>
+        {% endif %}
+            {% csrf_token %}
+            {% include "chain/AddUser.html" %}
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                      <br>
+                      <button type="submit" class="btn btn-success"> Add </button>
 
-              </div>
-          </div>
-    </form>
+                </div>
+            </div>
+      </form>
 
 </div>
 

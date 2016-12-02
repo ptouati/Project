@@ -1,13 +1,14 @@
 
 {% extends "chain/base.html" %}
 
-{% block title %}Home{% endblock %}
+{% block title %}Data{% endblock %}
 
 {% block body %}
 
 
 
         {% if mynodes %}
+              <h3>Here Are Your data</h3> <br>
 
               {% for nodes in mynodes %}
 
@@ -15,9 +16,13 @@
                         {% for  sensor in nodes.sensor_set.all %}
 
                               {% for  data1 in sensor.data_set.all %}
-
+                                <ul class="list-group">
+                                  <li class="list-group-item">
                                     {{data1.data}}
-                                    &nbsp       <a href ="{% url 'chain:DeleteData'  data1.id %}"  class="btn btn-primary btn-sm" role="button"> Delete Data </a> <br><br>
+                                    &nbsp       <a href ="{% url 'chain:DeleteData'  data1.id %}"  class="btn btn-primary btn-sm" role="button"> Delete Data </a>
+
+                                  </li>
+                                </ul>
 
                               {% endfor %}
 
@@ -31,7 +36,7 @@
 
         {% else %}
 
-            No Nodes
+            <h3>Sorry no nodes</h3>
 
         {% endif %}
 

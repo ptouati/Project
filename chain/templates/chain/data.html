@@ -1,7 +1,7 @@
 
 {% extends "chain/base.html" %}
 
-{% block title %}Home{% endblock %}
+{% block title %}Data{% endblock %}
 
 {% block body %}
 
@@ -12,9 +12,13 @@
 
                     {% if nodes.data_set.all %}
                         {% for  node in nodes.data_set.all %}
+                          <ul class="list-group">
+                            <li class="list-group-item">
+                              &nbsp       <{{node.data}}
+                              &nbsp       <a href ="{% url 'chain:DeleteData'  node.id %}"  class="btn btn-primary btn-sm" role="button"> Delete Data </a> 
 
-                              {{node.data}}
-                              &nbsp       <a href ="{% url 'chain:DeleteData'  node.id %}"  class="btn btn-primary btn-sm" role="button"> Delete Data </a> <br><br>
+                            </li>
+                          </ul>
 
                         {% endfor %}
 

@@ -1,6 +1,6 @@
 {% extends "chain/base.html" %}
 
-{% block title %}Home{% endblock %}
+{% block title %}{{request.user}} -- Home{% endblock %}
 
 {% block body %}
 
@@ -15,7 +15,7 @@
 
                 &nbsp       <a href ="{% url 'chain:sensor'  node.id %}"> {{node.name}}  </a>
                 &nbsp       <a href ="{% url 'chain:UpdateNode'  node.id %}" class="btn btn-primary btn-sm" role="button"> Update Node </a>
-                &nbsp       <a href ="{% url 'chain:DeleteNode'  node.id %}"  class="btn btn-primary btn-sm" role="button"> Delete Node </a> <br> <br>
+                &nbsp       <a href ="{% url 'chain:DeleteNode'  node.id %}"  class="btn btn-primary btn-sm" role="button"> Delete Node </a>
                     <br>
 
               </li>
@@ -27,7 +27,7 @@
 
 {% else %}
 
-  <h1> Sorry No Node </h1>
+  <h3> Sorry No Node </h3>
 
 {% endif %}
 

@@ -1,5 +1,5 @@
 from django.shortcuts import render,get_object_or_404,redirect
-from .models import Gateway, Node, Sensor, Data
+from .models import Gateway, Node, Sensor, Data, NodeForm,SensorForm
 from django.contrib.auth import authenticate,login, logout
 from .forms import UserForm
 from django.views import generic
@@ -7,6 +7,8 @@ from django.views.generic import View
 from django.views.generic.edit import CreateView,UpdateView, DeleteView
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse_lazy
+from django.template import RequestContext
+from django.shortcuts import render_to_response
 
 def index(request):
     if not request.user.is_authenticated():
@@ -68,6 +70,7 @@ class AddNode(CreateView):
         model= Node
         fields = ['gateway_name','name','owner']
 
+
 class UpdateNode(UpdateView):
         model= Node
         fields = ['gateway_name','name','owner']
@@ -126,3 +129,41 @@ class AddData(CreateView):
 class DeleteData(DeleteView):
         model= Data
         success_url = reverse_lazy('chain:index')
+
+def new_node(request):
+    if request.method == "POST":
+        form = NodeForm(request.POST)
+        if form.is_valid():
+            temp_node = form.save(commit=False)
+            temp_node.owner = request.user
+            temp_node.save()
+            mynodes = Node.objects.filter(owner=request.user)
+            return render(request, 'chain/index.html' , { 'mynodes' : mynodes})
+        else:
+            form = NodeForm(initial={'owner': request.user})
+            return render(request, 'chain/node_form.html', {'form': form})
+    else:
+        form = NodeForm(initial={'owner': request.user})
+        return render(request, 'chain/node_form.html', {'form': form})
+
+
+
+def new_sensor(request):
+    if request.method == "POST":
+        form = SensorForm(request.POST or None)
+        if form.is_valid():
+            temp_sensor = form.save(commit=False)
+            if temp_sensor.node_name.owner == request.user:
+                temp_sensor.save()
+                mynodes = Node.objects.filter(owner=request.user)
+                return render(request, 'chain/index.html' , { 'mynodes' : mynodes})
+            else:
+                form = SensorForm()
+                return render(request, 'chain/sensor_form.html', {'form': form ,'error_message': 'Not your node'})
+
+        else:
+            form = SensorForm()
+            return render(request, 'chain/sensor_form.html', {'form': form})
+    else:
+        form = SensorForm()
+        return render(request, 'chain/sensor_form.html', {'form': form})

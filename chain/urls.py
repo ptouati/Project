@@ -21,13 +21,13 @@ urlpatterns = [
 
     # for managing node
 
-    url(r'^AddNode/$', views.AddNode.as_view() , name='AddNode'),
+    url(r'^AddNode/$', views.new_node , name='AddNode'),
     url(r'^UpdateNode/(?P<pk>[0-9]+)/$', views.UpdateNode.as_view() , name='UpdateNode'),
     url(r'^(?P<pk>[0-9]+)/DeleteNode/$', views.DeleteNode.as_view() , name='DeleteNode'),
 
     # for managing Sensor
 
-    url(r'^AddSensor/$', views.AddSensor.as_view() , name='AddSensor'),
+    url(r'^AddSensor/$', views.new_sensor , name='AddSensor'),
     url(r'^UpdateSensor/(?P<pk>[0-9]+)/$', views.UpdateSensor.as_view() , name='UpdateSensor'),
     url(r'^(?P<pk>[0-9]+)/DeleteSensor/$', views.DeleteSensor.as_view() , name='DeleteSensor'),
 
