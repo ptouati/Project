@@ -2,6 +2,8 @@ from django.db import models
 from django.contrib.auth.models import Permission, User
 from django.core.urlresolvers import reverse
 from django.forms import ModelForm
+from itertools import chain
+
 
 # Create your models here.
 
@@ -45,3 +47,22 @@ class SensorForm(ModelForm):
     class Meta:
         model = Sensor
         exclude = ()
+    def __init__(self, var, *args, **kwargs):
+        super(SensorForm, self).__init__(*args, **kwargs)
+        self.fields['node_name'].queryset = Node.objects.filter(owner=var)
+
+# class DataForm(ModelForm):
+#    class Meta:
+#        model = Data
+#        exclude = ()
+#        super(DataForm, self).__init__(*args, **kwargs)
+#        mynodes = Node.objects.filter(owner=var)
+#        quer = None
+#        count = 0
+#        for nodes in mynodes:
+#            if count == 0:
+#            quer =nodes.sensor_set.all()
+##        else :
+    #            quer = chain(quer , nodes.sensor_set.all() )
+    #        count +=1
+    #    self.fields['sensor_name'].queryset = quer

@@ -14,8 +14,8 @@
                         {% for  node in nodes.data_set.all %}
                           <ul class="list-group">
                             <li class="list-group-item">
-                              &nbsp       <{{node.data}}
-                              &nbsp       <a href ="{% url 'chain:DeleteData'  node.id %}"  class="btn btn-primary btn-sm" role="button"> Delete Data </a> 
+                                  {{node.data}}
+                                  <a href ="{% url 'chain:DeleteData'  node.id %}"  class="btn btn-primary btn-sm" role="button"> Delete Data </a>
 
                             </li>
                           </ul>

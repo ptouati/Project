@@ -1,5 +1,5 @@
 from django.shortcuts import render,get_object_or_404,redirect
-from .models import Gateway, Node, Sensor, Data, NodeForm,SensorForm
+from .models import *
 from django.contrib.auth import authenticate,login, logout
 from .forms import UserForm
 from django.views import generic
@@ -132,7 +132,7 @@ class DeleteData(DeleteView):
 
 def new_node(request):
     if request.method == "POST":
-        form = NodeForm(request.POST)
+        form = NodeForm(request.POST or None )
         if form.is_valid():
             temp_node = form.save(commit=False)
             temp_node.owner = request.user
@@ -143,14 +143,14 @@ def new_node(request):
             form = NodeForm(initial={'owner': request.user})
             return render(request, 'chain/node_form.html', {'form': form})
     else:
-        form = NodeForm(initial={'owner': request.user})
+        form = NodeForm()
         return render(request, 'chain/node_form.html', {'form': form})
 
 
 
 def new_sensor(request):
     if request.method == "POST":
-        form = SensorForm(request.POST or None)
+        form = SensorForm(request.POST or None )
         if form.is_valid():
             temp_sensor = form.save(commit=False)
             if temp_sensor.node_name.owner == request.user:
@@ -158,12 +158,12 @@ def new_sensor(request):
                 mynodes = Node.objects.filter(owner=request.user)
                 return render(request, 'chain/index.html' , { 'mynodes' : mynodes})
             else:
-                form = SensorForm()
+                form = SensorForm(var = request.user)
                 return render(request, 'chain/sensor_form.html', {'form': form ,'error_message': 'Not your node'})
 
         else:
-            form = SensorForm()
+            form = SensorForm(var = request.user)
             return render(request, 'chain/sensor_form.html', {'form': form})
     else:
-        form = SensorForm()
+        form = SensorForm(var = request.user)
         return render(request, 'chain/sensor_form.html', {'form': form})

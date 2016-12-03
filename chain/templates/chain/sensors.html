@@ -7,6 +7,7 @@
 {% if mynodes %}
     <h3>Here Are Your Sensors</h3> <br>
       {% for nodes in  mynodes %}
+          <h3> <strong>Node -- {{nodes.name}}</strong></h3>
           {% if nodes.sensor_set.all %}
                 {% for  node in nodes.sensor_set.all %}
                   <ul class="list-group">
