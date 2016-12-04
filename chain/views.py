@@ -17,6 +17,18 @@ def index(request):
         mynodes = Node.objects.filter(owner=request.user)
         return render(request, 'chain/index.html' , { 'mynodes' : mynodes})
 
+def test(request):
+    if not request.user.is_authenticated():
+        return render(request, 'chain/login.html')
+    else:
+        return render(request, 'chain/base1.html' )
+
+def tests(request):
+    if not request.user.is_authenticated():
+        return render(request, 'chain/login.html')
+    else:
+        return render(request, 'chain/base2.html' )
+
 class UserFormView(View):
     form_class = UserForm
     template_name = 'chain/reg.html'

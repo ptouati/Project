@@ -12,6 +12,9 @@ urlpatterns = [
     url(r'^datas/$', views.datas , name='datas'),
     url(r'^data/(?P<pk>[0-9]+)/$', views.data , name='data'),
 
+    # test
+    url(r'^test/$', views.test , name='test'),
+    url(r'^tests/$', views.tests , name='tests'),
 
     #for User
 
