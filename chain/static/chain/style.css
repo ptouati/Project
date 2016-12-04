@@ -246,7 +246,7 @@ li,ul{
 
 .header-rightside .nav > li > a:focus,
 .header-rightside .nav > li > a:hover {
-    background: none;
+    background:None ;
     text-decoration: none;
 }
 
@@ -339,7 +339,7 @@ li,ul{
 }
 
 header {
-    background: #ffffff none repeat scroll 0 0;
+    background: 	#ADD8E6;
     box-shadow: 0 1px 12px rgba(0, 0, 0, 0.04);
     display: inline-block !important;
     line-height: 23px;

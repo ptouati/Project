@@ -1,4 +1,6 @@
 from django.db import models
+import datetime
+
 from django.contrib.auth.models import Permission, User
 from django.core.urlresolvers import reverse
 from django.forms import ModelForm
@@ -9,6 +11,8 @@ from itertools import chain
 
 class Gateway(models.Model):
     name = models.CharField(max_length = 40)
+    description = models.CharField(max_length = 400, blank=True)
+    doc = models.DateTimeField(blank=True, default=datetime.datetime.now)
     def __str__(self):
         return self.name
 
@@ -16,6 +20,8 @@ class Node(models.Model):
     gateway_name = models.ForeignKey(Gateway,on_delete = models.CASCADE)
     name = models.CharField(max_length = 40)
     owner = models.ForeignKey(User,on_delete = models.CASCADE)
+    description = models.CharField(max_length = 400, blank=True)
+    doc = models.DateTimeField(blank=True, default=datetime.datetime.now)
     def get_absolute_url(self):
         return reverse(request , 'chain/test.html')
     def __str__(self):
@@ -25,6 +31,8 @@ class Node(models.Model):
 class Sensor(models.Model):
     node_name = models.ForeignKey(Node,on_delete = models.CASCADE)
     name = models.CharField(max_length = 40)
+    description = models.CharField(max_length = 400, blank=True)
+    doc = models.DateTimeField(blank=True, default=datetime.datetime.now)
     def get_absolute_url(self):
         return reverse('chain:index')
     def __str__(self):
@@ -33,6 +41,8 @@ class Sensor(models.Model):
 class Data(models.Model):
     sensor_name = models.ForeignKey(Sensor,on_delete = models.CASCADE)
     data = models.CharField(max_length = 40)
+    description = models.CharField(max_length = 400, blank=True)
+    doc = models.DateTimeField(blank=True, default=datetime.datetime.now)
     def get_absolute_url(self):
         return reverse('chain:index')
     def __str__(self):
@@ -47,7 +57,7 @@ class SensorForm(ModelForm):
     class Meta:
         model = Sensor
         exclude = ()
-    def __init__(self, var, *args, **kwargs):
+    def __init__(self, var=None, *args, **kwargs):
         super(SensorForm, self).__init__(*args, **kwargs)
         self.fields['node_name'].queryset = Node.objects.filter(owner=var)
 
@@ -65,4 +75,3 @@ class SensorForm(ModelForm):
 ##        else :
     #            quer = chain(quer , nodes.sensor_set.all() )
     #        count +=1
-    #    self.fields['sensor_name'].queryset = quer

@@ -136,7 +136,7 @@ def datas(request):
 
 class AddData(CreateView):
         model= Data
-        fields = ['sensor_name','data']
+        fields = ['sensor_name','data' , 'doc' , 'description']
 
 class DeleteData(DeleteView):
         model= Data
@@ -162,7 +162,7 @@ def new_node(request):
 
 def new_sensor(request):
     if request.method == "POST":
-        form = SensorForm(request.POST or None )
+        form = SensorForm(request.user, request.POST or None )
         if form.is_valid():
             temp_sensor = form.save(commit=False)
             if temp_sensor.node_name.owner == request.user:
@@ -170,12 +170,12 @@ def new_sensor(request):
                 mynodes = Node.objects.filter(owner=request.user)
                 return render(request, 'chain/index.html' , { 'mynodes' : mynodes})
             else:
-                form = SensorForm(var = request.user)
+                form = SensorForm( request.user)
                 return render(request, 'chain/sensor_form.html', {'form': form ,'error_message': 'Not your node'})
 
         else:
-            form = SensorForm(var = request.user)
+            form = SensorForm( request.user)
             return render(request, 'chain/sensor_form.html', {'form': form})
     else:
-        form = SensorForm(var = request.user)
+        form = SensorForm( request.user)
         return render(request, 'chain/sensor_form.html', {'form': form})
