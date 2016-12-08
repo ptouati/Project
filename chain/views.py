@@ -136,7 +136,7 @@ def datas(request):
 
 class AddData(CreateView):
         model= Data
-        fields = ['sensor_name','data' , 'doc' , 'description']
+        fields = ['sensor_name','data' ]
 
 class DeleteData(DeleteView):
         model= Data

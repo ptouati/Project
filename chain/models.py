@@ -1,6 +1,5 @@
 from django.db import models
 import datetime
-
 from django.contrib.auth.models import Permission, User
 from django.core.urlresolvers import reverse
 from django.forms import ModelForm
@@ -19,6 +18,7 @@ class Gateway(models.Model):
 class Node(models.Model):
     gateway_name = models.ForeignKey(Gateway,on_delete = models.CASCADE)
     name = models.CharField(max_length = 40)
+    image = models.CharField(max_length = 400 , default = "https://d3s5r33r268y59.cloudfront.net/97443/products/thumbs/2016-08-30T16:15:27.419Z-IMG-20160823-WA0018.jpg.855x570_q85_pad_rcrop.jpg")
     owner = models.ForeignKey(User,on_delete = models.CASCADE)
     description = models.CharField(max_length = 400, blank=True)
     doc = models.DateTimeField(blank=True, default=datetime.datetime.now)
@@ -32,6 +32,7 @@ class Sensor(models.Model):
     node_name = models.ForeignKey(Node,on_delete = models.CASCADE)
     name = models.CharField(max_length = 40)
     description = models.CharField(max_length = 400, blank=True)
+    image = models.CharField(max_length = 400 , default = "https://upload.wikimedia.org/wikipedia/commons/0/09/CCD_Image_sensor.jpg")
     doc = models.DateTimeField(blank=True, default=datetime.datetime.now)
     def get_absolute_url(self):
         return reverse('chain:index')
@@ -51,27 +52,12 @@ class Data(models.Model):
 class NodeForm(ModelForm):
     class Meta:
         model = Node
-        exclude = ('owner',)
+        exclude = ('owner', 'doc', 'image',)
 
 class SensorForm(ModelForm):
     class Meta:
         model = Sensor
-        exclude = ()
+        exclude = ('doc', 'image',)
     def __init__(self, var=None, *args, **kwargs):
         super(SensorForm, self).__init__(*args, **kwargs)
         self.fields['node_name'].queryset = Node.objects.filter(owner=var)
-
-# class DataForm(ModelForm):
-#    class Meta:
-#        model = Data
-#        exclude = ()
-#        super(DataForm, self).__init__(*args, **kwargs)
-#        mynodes = Node.objects.filter(owner=var)
-#        quer = None
-#        count = 0
-#        for nodes in mynodes:
-#            if count == 0:
-#            quer =nodes.sensor_set.all()
-##        else :
-    #            quer = chain(quer , nodes.sensor_set.all() )
-    #        count +=1
