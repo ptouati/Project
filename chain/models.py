@@ -5,9 +5,7 @@ from django.core.urlresolvers import reverse
 from django.forms import ModelForm
 from itertools import chain
 
-
-# Create your models here.
-
+# For Gateway --
 class Gateway(models.Model):
     name = models.CharField(max_length = 40)
     description = models.CharField(max_length = 400, blank=True)
@@ -15,6 +13,7 @@ class Gateway(models.Model):
     def __str__(self):
         return self.name
 
+# for Node --
 class Node(models.Model):
     gateway_name = models.ForeignKey(Gateway,on_delete = models.CASCADE)
     name = models.CharField(max_length = 40)
@@ -28,6 +27,7 @@ class Node(models.Model):
         str1 = str(self.owner) + ' -- ' + self.name
         return str1
 
+# For Sensor --
 class Sensor(models.Model):
     node_name = models.ForeignKey(Node,on_delete = models.CASCADE)
     name = models.CharField(max_length = 40)
@@ -39,6 +39,7 @@ class Sensor(models.Model):
     def __str__(self):
         return self.name
 
+# For Data --
 class Data(models.Model):
     sensor_name = models.ForeignKey(Sensor,on_delete = models.CASCADE)
     data = models.CharField(max_length = 40)
@@ -49,11 +50,13 @@ class Data(models.Model):
     def __str__(self):
         return self.data
 
+# For Node Form
 class NodeForm(ModelForm):
     class Meta:
         model = Node
         exclude = ('owner', 'doc', 'image',)
 
+# For Sensor to set that in form you can get only User nodes.
 class SensorForm(ModelForm):
     class Meta:
         model = Sensor
