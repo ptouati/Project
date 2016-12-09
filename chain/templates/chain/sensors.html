@@ -4,18 +4,18 @@
 
 {% block body %}
 
+<div class="" id="Left_Side">
+
 {% if mynodes %}
-    <h3>Here Are Your Sensors</h3> <br>
       {% for nodes in  mynodes %}
-          <h3> <strong>Node -- {{nodes.name}}</strong></h3>
           {% if nodes.sensor_set.all %}
+            <h3> Node -- {{nodes.name}}</h3>
                 {% for  node in nodes.sensor_set.all %}
                   <ul class="list-group">
                     <li class="list-group-item">
                       &nbsp       <a href ="{% url 'chain:data'  node.id %}"> {{node.name}}  </a>
                       &nbsp       <a href ="{% url 'chain:UpdateSensor'  node.id %}" class="btn btn-primary btn-sm" role="button"> Update Sensor </a>
                       &nbsp       <a href ="{% url 'chain:DeleteSensor'  node.id %}"  class="btn btn-primary btn-sm" role="button"> Delete Sensor </a>
-
 
                     </li>
                   </ul>
@@ -28,11 +28,32 @@
 
 {% else %}
 
-  <h3> Sorry No Node </h3>
+  <h3>
+    You have not any node. <br> <br>
+    <a href="{%url "chain:AddNode"%}">Click</a> Here to add a Node.
+  </h3>
 
 {% endif %}
 
-
+</div>
 
 
 {% endblock %}
+
+
+
+{% block body_right %}
+
+<div class="" id="Right_Side">
+
+  <h3> Here are soemething that can help you </h3>
+    <p>
+        We made a help page to help you throughout.
+        We will gonna put some suggestion for you here.
+    </p>
+</div>
+
+
+
+
+{% endblock body_right %}

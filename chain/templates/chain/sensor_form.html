@@ -14,7 +14,7 @@
             <h3><strong>  &nbsp       -------------------             {{ error_message }}    ----------------   </strong></h3>
         {% endif %}
             {% csrf_token %}
-            {% include "chain/AddUser.html" %}
+            {% include "chain/AddNode.html" %}
             <div class="form-group">
                 <div class="col-sm-offset-2 col-sm-10">
                       <br>
@@ -29,3 +29,21 @@
 </div>
 
 {% endblock  %}
+
+
+
+{% block body_right %}
+
+<div class="" id="Right_Side">
+
+  <h3> Here are soemething that can help you </h3>
+    <p>
+        We made a help page to help you throughout.
+        We will gonna put some suggestion for you here.
+    </p>
+</div>
+
+
+
+
+{% endblock body_right %}

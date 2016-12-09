@@ -1,5 +1,15 @@
  body {
-   background: white url('https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcQj68aezTCR4-WgnKSCdV9vq_9UBTjK6burnyXEw6R-2oQSkLaz');
+   background: white url('https://inspirationhut.net/wp-content/uploads/2013/05/201.png');
+}
+
+#Right_Side {
+  margin-left: 1cm;
+  margin-top: 1cm;
+}
+
+#Left_Side {
+  margin-left: 1cm;
+  margin-top: 1cm;
 }
 
 /*Main CSS*/
@@ -185,7 +195,7 @@ li,ul{
 /*Home Page*/
 
 .home {
-    background: white url('https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcQj68aezTCR4-WgnKSCdV9vq_9UBTjK6burnyXEw6R-2oQSkLaz');
+    background: white url('https://inspirationhut.net/wp-content/uploads/2013/05/201.png');
 }
 
 #navigation {

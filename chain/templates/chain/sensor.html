@@ -5,6 +5,8 @@
 
 {% block body %}
 
+<div class="" id="Left_Side">
+
               {% for nodes in mynodes %}
 
                     {% if nodes.sensor_set.all %}
@@ -29,6 +31,7 @@
                     {%endif%}
 
               {% endfor %}
+</div>
 
 {% endblock %}
 
@@ -40,7 +43,7 @@
 
 <div class="albums-container container-fluid">
 
-    <div class="row">
+    <div class="row"> <br> <br>
 
                 <div class="col-sm-6 col-lg-5">
                     <div class="thumbnail">
@@ -49,13 +52,12 @@
                                </a>
 
                         <div class="caption">
-                            <h2>{{ node.name }} -- </h2>
+                            <h2>{{ node.name }}  </h2>
                             <p>
                               {{node.description}}
 
                             </p>
                             <!-- View Details -->
-                            <a href="{% url 'chain:AddSensor' %}" class="btn btn-primary btn-sm" role="button">Add</a>
                             <a href="{% url 'chain:UpdateNode'  node.id %}" class="btn btn-primary btn-sm" role="button">Update</a>
 
                             <!-- Delete Album -->

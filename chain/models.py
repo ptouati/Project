@@ -36,8 +36,8 @@ class Node(models.Model):
     def get_absolute_url(self):
         return reverse(request , 'chain/test.html')
     def __str__(self):
-        str1 = str(self.owner) + ' -- ' + self.name
-        return str1
+    #    str1 = str(self.owner) + ' -- ' + self.name
+        return self.name
 
 # For Sensor --
 class Sensor(models.Model):

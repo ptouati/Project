@@ -5,10 +5,9 @@
 
 {% block body %}
 
-
+<div class="" id="Left_Side">
 
         {% if mynodes %}
-              <h3>Here Are Your data</h3> <br>
 
               {% for nodes in mynodes %}
 
@@ -36,11 +35,31 @@
 
         {% else %}
 
-            <h3>Sorry no nodes</h3>
+        <h3>
+          You have not any node. <br> <br>
+          <a href="{%url "chain:AddNode"%}">Click</a> Here to add a Node.
+        </h3>
+
 
         {% endif %}
 
 
-
+</div>
 
 {% endblock %}
+
+{% block body_right %}
+
+<div class="" id="Right_Side">
+
+  <h3> Here are soemething that can help you </h3>
+    <p>
+        We made a help page to help you throughout.
+        We will gonna put some suggestion for you here.
+    </p>
+</div>
+
+
+
+
+{% endblock body_right %}
