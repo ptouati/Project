@@ -27,6 +27,10 @@ urlpatterns = [
     url(r'^UpdateNode/(?P<pk>[0-9]+)/$', login_required(views.UpdateNode.as_view()) , name='UpdateNode'),
     url(r'^(?P<pk>[0-9]+)/DeleteNode/$', login_required(views.DeleteNode.as_view()) , name='DeleteNode'),
 
+    # For user
+    url(r'^AddUser/$', login_required(views.AddUser) , name='AddUser'),
+    url(r'^UpdateUser/(?P<pk>[0-9]+)/$', login_required(views.UpdateUser.as_view()) , name='UpdateUser'),
+
     # for managing Sensor
     url(r'^AddSensor/$', login_required(views.new_sensor) , name='AddSensor'),
     url(r'^UpdateSensor/(?P<pk>[0-9]+)/$', login_required(views.UpdateSensor.as_view()) , name='UpdateSensor'),
@@ -35,5 +39,5 @@ urlpatterns = [
     # for managing data
     url(r'^AddData/$', login_required(views.AddData.as_view()) , name='AddData'),
     url(r'^(?P<pk>[0-9]+)/DeleteData/$', login_required(views.DeleteData.as_view()) , name='DeleteData'),
-    
+
 ]

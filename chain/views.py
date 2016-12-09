@@ -10,6 +10,29 @@ from django.core.urlresolvers import reverse_lazy
 from django.template import RequestContext
 from django.shortcuts import render_to_response
 
+# For adding a user Profile
+def AddUser(request):
+    if request.method == "POST":
+        form = ProfileForm(request.POST or None )
+        if form.is_valid():
+            temp_node = form.save(commit=False)
+            temp_node.owner = request.user
+            temp_node.save()
+            mynodes = Node.objects.filter(owner=request.user)
+            return render(request, 'chain/index.html' , { 'mynodes' : mynodes})
+        else:
+            form = ProfileForm(initial={'owner': request.user})
+            return render(request, 'chain/profile_form.html', {'form': form})
+    else:
+        form = ProfileForm()
+        return render(request, 'chain/profile_form.html', {'form': form})
+
+# For updating the User
+class UpdateUser(UpdateView):
+        model= Profile
+        fields = ['first_name','last_name','about', 'image']
+
+
 # It's the homepage
 def index(request):
         mynodes = Node.objects.filter(owner=request.user)

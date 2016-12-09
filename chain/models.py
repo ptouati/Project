@@ -5,6 +5,18 @@ from django.core.urlresolvers import reverse
 from django.forms import ModelForm
 from itertools import chain
 
+class Profile(models.Model):
+    first_name = models.CharField(max_length = 40)
+    last_name = models.CharField(max_length = 40)
+    owner = models.ForeignKey(User,on_delete = models.CASCADE)
+    about = models.CharField(max_length = 400, blank=True)
+    doc = models.DateTimeField(blank=True, default=datetime.datetime.now)
+    image = models.CharField(max_length = 400, blank = True, default = "http://www.hit4hit.org/img/login/user-icon-6.png")
+    def get_absolute_url(self):
+        return reverse('chain:index')
+    def __str__(self):
+        return self.first_name
+
 # For Gateway --
 class Gateway(models.Model):
     name = models.CharField(max_length = 40)
@@ -54,6 +66,11 @@ class Data(models.Model):
 class NodeForm(ModelForm):
     class Meta:
         model = Node
+        exclude = ('owner', 'doc', 'image',)
+
+class ProfileForm(ModelForm):
+    class Meta:
+        model = Profile
         exclude = ('owner', 'doc', 'image',)
 
 # For Sensor to set that in form you can get only User nodes.
