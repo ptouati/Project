@@ -1,5 +1,8 @@
 from django.conf.urls import url
 from . import views
+from django.contrib.auth.decorators import login_required, permission_required
+from django.views.generic import TemplateView
+
 app_name = 'chain'
 
 urlpatterns = [
@@ -25,7 +28,7 @@ urlpatterns = [
     # for managing node
 
     url(r'^AddNode/$', views.new_node , name='AddNode'),
-    url(r'^UpdateNode/(?P<pk>[0-9]+)/$', views.UpdateNode.as_view() , name='UpdateNode'),
+    url(r'^UpdateNode/(?P<pk>[0-9]+)/$', login_required(views.UpdateNode.as_view()) , name='UpdateNode'),
     url(r'^(?P<pk>[0-9]+)/DeleteNode/$', views.DeleteNode.as_view() , name='DeleteNode'),
 
     # for managing Sensor

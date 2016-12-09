@@ -5,11 +5,11 @@
 {% block title %}Home{% endblock %}
 
 {% block body %}
-
+<br> <br>
 <form action="" method="post">{% csrf_token %}
     <p>Are you sure you want to delete "{{ object }}"?</p>
-    <input type="submit" value="Confirm" />
-    <input type="submit" value="Cancel" onClick="javascript:history.go(-1);"/>
+    <input type="submit" value="Confirm" />  &nbsp
+    <input type="button" value="Cancel" onClick="javascript:history.go(-1);"/>
 </form>
 
 
